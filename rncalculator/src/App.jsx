@@ -12,7 +12,6 @@ function App() {
     else{
       setRoman(false)
     }
-    console.log(roman)
   }
 
   const intToRoman = (num) => {
@@ -62,7 +61,7 @@ function App() {
     setCalc(calc + value);
 
     if (!operators.includes(value)){
-      setResult(romanConverter(eval(calc + value)));
+      setResult(eval(calc + value).toString());
     }
 
   }
@@ -79,7 +78,8 @@ function App() {
   }
 
   const calculate = ()=>{
-    setCalc(romanConverter(eval(calc)));
+    setCalc(eval(calc).toString());
+    console.log(calc)
   }
 
   const clear = ()=>{
@@ -88,21 +88,19 @@ function App() {
     }
     const value = calc.slice(0, -1);
 
-    setCalc('')
+    setCalc(value)
   }
 
   return(
     <div className="App">
-      <div className="mode">
-        <button onClick={switchMode}>Toggle Mode</button>
-      </div>
-      <div className="Calculator">
+      <div className="calculator">
         <div className="display">
-          {result ? <span>({result})</span> : ''} {' '}
+          {result ? <span>({romanConverter(result)})</span> : ''} {' '}
           {calc || '0'}
         </div>
 
         <div className='operators'>
+        <button onClick={switchMode}>Mode</button>
           <button onClick={()=>reCalc('/')} >/</button>
           <button onClick={()=>reCalc('*')}>*</button>
           <button onClick={()=>reCalc('+')}>+</button>
